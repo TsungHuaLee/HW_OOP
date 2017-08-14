@@ -1,0 +1,29 @@
+﻿6/3 debug
++ - 原本做法
+找出較長的數字的used,以此為for loop 條件,對每一個digit獨立計算
+沒有檢查較長的used, 是否大於較短的size
+ex: 1234567890123456 size = 20 used = 16
+   -xxxxxx0000000001 size = 10 used = 1
+
+解決 找出較長的數字的used後,對每一個number做確認 size > 較長的used
+
+----------------------------------------------------------------------------------------
+6/4 debug 
+因為 constructor(string) 允許 "00001235"
+在operator / 實作時,divisor 的 used 很重要
+所以要確保divisor 沒有沒用的 0
+
+解決:
+將(const BigInt& divisor) -> (Bignt& divisor)
+before /, check divisor.used
+
+constructor(string) 允許 "00001235"
+-> operator / 實作時,每次都會取 divisor.used + 1 的 section
+   為統一計算，被除數最前面補一個 0
+   ex 7163456 / 123
+
+----------------------------------------------------------------------------------------
+額外寫個private function checkused
+
+
+
